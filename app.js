@@ -16,9 +16,10 @@ const campgroundRoutes = require("./routes/campgrounds"),
 	  	commentRoutes = require("./routes/comments"),
 	  	authRoutes = require("./routes/index");
 
-
+//this allows you to make a .env file with any environment variables you want to set.
+require('dotenv').config()
 //seedDB(); //removed the seeds for now
-//set environment variable DATABASEURL to local database, and on heroku for heroku database.
+//set environment variable DATABASEURL to store url for local database, and same variable for production database.
 //use the keyword "set" on windows command prompt.(set DATABASEURL=<url>)
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
 
