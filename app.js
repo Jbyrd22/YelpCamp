@@ -18,7 +18,9 @@ const campgroundRoutes = require("./routes/campgrounds"),
 
 
 //seedDB(); //removed the seeds for now
-mongoose.connect("mongodb+srv://jbyrd22:Mongoose22!@cluster0-lmbna.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
+//set environment variable DATABASEURL to server route for local, and on heroku for heroku database.
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
