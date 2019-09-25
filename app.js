@@ -18,7 +18,8 @@ const campgroundRoutes = require("./routes/campgrounds"),
 
 
 //seedDB(); //removed the seeds for now
-//set environment variable DATABASEURL to server route for local, and on heroku for heroku database.
+//set environment variable DATABASEURL to local database, and on heroku for heroku database.
+//use the keyword "set" on windows command prompt.(set DATABASEURL=<url>)
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
