@@ -18,7 +18,7 @@ const campgroundRoutes = require("./routes/campgrounds"),
 
 //this allows you to make a .env file with any environment variables you want to set.
 require('dotenv').config()
-//seedDB(); //removed the seeds for now
+
 //set environment variable DATABASEURL to store url for local database, and same variable for production database.
 //use the keyword "set" on windows command prompt.(set DATABASEURL=<url>)
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
@@ -28,6 +28,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());//must come before passport configuration!!!
+app.locals.moment = require('moment');//for time stamp on show page
 
 
 
