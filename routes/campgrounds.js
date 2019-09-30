@@ -5,6 +5,7 @@ const Comment = require("../models/comment");
 const passport = require("passport");
 const middleware = require("../middleware");//dont have to specify index.js because index is a special name for file.
 const NodeGeocoder = require("node-geocoder");
+require('dotenv').config();//must have on every page that you use the .env file.
 
 let options = {
 	provider: 'google',
@@ -41,9 +42,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		id: req.user._id,
 		username: req.user.username
 	}
+
 	geocoder.geocode(req.body.location, function (err, data) {
     if (err || !data.length) {
-      console.log(err);
+      console.log(err.message);
       req.flash('error', 'Invalid address');
       return res.redirect('back');
     }
@@ -89,8 +91,9 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) => {
 router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 	geocoder.geocode(req.body.location, function (err, data) {
     if (err || !data.length) {
+			console.error(err);
       req.flash('error', 'Invalid address');
-      return res.redirect('back');
+			return res.redirect('back');
     }
     req.body.campground.lat = data[0].latitude;
     req.body.campground.lng = data[0].longitude;
@@ -117,6 +120,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 			if(err){
 				console.log(err);
 			} else {
+				req.flash("success", "Campground Deleted!");
 				res.redirect("/campgrounds");
 			}
 		});

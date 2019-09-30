@@ -13,7 +13,7 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next){
 			} else {
 				//does user own campground?
 				//use built in equals method that comes with mongoose.
-				if(foundCampground.author.id.equals(req.user._id)){
+				if(foundCampground.author.id.equals(req.user._id) || req.user.isAdmin){
 					next();//steps on to the next callback function where middleware is called.
 				} else {
           req.flash("error", "You don't have permission to do that!");
@@ -35,7 +35,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
       } else {
         //does user own comment?
         //use built in equals method that comes with mongoose.
-        if(foundComment.author.id.equals(req.user._id)){
+        if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){
           next();//steps on to the next callback function where middleware is called.
         } else {
           req.flash("error", "Not authorized for this!!");

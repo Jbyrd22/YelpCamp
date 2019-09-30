@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -19,6 +21,9 @@ router.get("/register", (req, res) => {
 //creating a new user
 router.post("/register", (req, res) => {
 	let newUser = new User({username: req.body.username});
+	if(req.body.adminCode === process.env.SECRET_CODE) {
+		newUser.isAdmin = true;
+	}
 	User.register(newUser, req.body.password, (err, user) => {
 		if(err){
 			req.flash("error", err.message);//pass passports err message through flash.
