@@ -44,15 +44,15 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 	}
 
 	geocoder.geocode(req.body.location, function (err, data) {
-    if (err || !data.length) {
-      console.log(err.message);
-      req.flash('error', 'Invalid address');
-      return res.redirect('back');
-    }
-    let lat = data[0].latitude;
-    let lng = data[0].longitude;
-    let location = data[0].formattedAddress;
-    let newCampground = {name: name, image: image, description: description, price: price, author: author, location: location, lat: lat, lng: lng};
+		if (err || !data.length) {
+		console.log(err.message);
+		req.flash('error', 'Invalid address');
+		return res.redirect('back');
+		}
+		let lat = data[0].latitude;
+		let lng = data[0].longitude;
+		let location = data[0].formattedAddress;
+		let newCampground = {name: name, image: image, description: description, price: price, author: author, location: location, lat: lat, lng: lng};
 		Campground.create(newCampground, (err, campground) => {
 			if(err){
 				console.log(err);
