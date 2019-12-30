@@ -37,7 +37,7 @@ app.locals.moment = require('moment');//for time stamp on show page
 //===========================================================================
 
 app.use(require("express-session")({
-	secret: "Gatlin is the best dog",
+	secret: process.env.PASSPORT,
 	resave: false,
 	saveUninitialized: false
 }));
